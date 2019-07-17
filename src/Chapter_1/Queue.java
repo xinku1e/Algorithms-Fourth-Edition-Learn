@@ -10,8 +10,9 @@ public class Queue<Item> implements Iterable<Item> {
 		Item item;
 		Node next;
 	}
-	private Node first, last;
-	private int N;	//size
+	private Node first;
+	private Node last;
+	private int N;
 	
 	public boolean isEmpty() {
 		return first == null;
@@ -29,24 +30,24 @@ public class Queue<Item> implements Iterable<Item> {
 		if(isEmpty())	first = last;
 		else	oldlast.next = last;
 		N++;
+		
 	}
 	
 	public Item dequeue() {
 		Item item = first.item;
 		first = first.next;
+		if(isEmpty())	last = null;
 		N--;
-		if(isEmpty())	first = last;
 		return item;
 	}
-
 	
 	public Iterator<Item> iterator() {
-		
-		return new Queueiterator();
+		return new QueueIterator();
 	}
-	private class Queueiterator implements Iterator<Item>{
+	
+	private class QueueIterator implements Iterator<Item>{
 		Node current = first;
-		public boolean hasNext(){return current != null;}
+		public boolean hasNext() {return current != null;}
 		public void remove() {}
 		public Item next() {
 			Item item = current.item;
@@ -54,6 +55,9 @@ public class Queue<Item> implements Iterable<Item> {
 			return item;
 		}
 	}
+
+	
+	
 	public static void main(String[] args) {
 		Queue<String> queue = new Queue<String>();
 

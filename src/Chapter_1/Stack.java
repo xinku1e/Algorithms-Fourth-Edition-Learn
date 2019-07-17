@@ -36,6 +36,10 @@ public class Stack<Item> implements Iterable<Item> {
 		return item;
 	}
 	
+	public Item peek() {
+		return first.item;
+	}
+	
 	private class StackIterator implements Iterator<Item>{
 		Node current = first;
 		public boolean hasNext(){ return current != null;}
@@ -65,6 +69,7 @@ public class Stack<Item> implements Iterable<Item> {
 		System.out.println("("+s.size()+" left on stack)");  
 		for(String s1 : s)
 			System.out.print(s1+" ");
+		System.out.println("\n"+s.peek());
 	}
 	
 	
