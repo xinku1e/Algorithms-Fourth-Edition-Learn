@@ -1,10 +1,16 @@
 package Chapter_1;
 
 public class Date {
-	private final int year;
-	private final  int month;
-	private final int day;
+	private  final int year;
+	private   final int month;
+	private  final int day;
 	
+	public Date(String date) {
+		String[] s = date.split("/");
+		year = Integer.parseInt(s[0]);
+		month = Integer.parseInt(s[1]);
+		day = Integer.parseInt(s[2]);
+	}
 	public Date(int year, int month, int day) {
 		this.year = year;
 		this.month = month;

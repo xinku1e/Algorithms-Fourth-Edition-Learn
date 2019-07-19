@@ -1,9 +1,9 @@
 package Chapter_1Test;
 
-public class Test0000000 {
+public class Test1_00 {
 	private int[] id;
 	
-	public Test0000000(int N) {
+	public Test1_00(int N) {
 		id = new int [N];
 		for(int i = 0; i < N; i++)
 			id[i] = i;
@@ -32,7 +32,7 @@ public class Test0000000 {
 	
 	public static void main(String[] args) {
 		int N = 10;
-		Test0000000 t = new Test0000000(N);
+		Test1_00 t = new Test1_00(N);
 		t.union(1, 5);
 		t.union(1, 4);
 		t.union(1, 3);
