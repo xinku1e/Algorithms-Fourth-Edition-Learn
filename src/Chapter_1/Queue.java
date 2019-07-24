@@ -14,6 +14,21 @@ public class Queue<Item> implements Iterable<Item> {
 	private Node last;
 	private int N;
 	
+	public Queue() {
+		
+	}
+	
+	public Queue(Queue<Item> q) {
+		Item t;
+		int n = q.size();
+		while (n-- > 0) {
+			t = q.dequeue();
+			enqueue(t);
+			q.enqueue(t);
+		}
+		
+	}
+	
 	public boolean isEmpty() {
 		return first == null;
 	}
@@ -42,6 +57,13 @@ public class Queue<Item> implements Iterable<Item> {
 		return item;
 	}
 	
+	public Queue<Item> catenation(Queue<Item> q1, Queue<Item> q2) {
+		while (q2.size() > 0) {
+			q1.enqueue(q2.dequeue());
+		}
+		return q1;
+	}
+	
 	public Iterator<Item> iterator() {
 		return new QueueIterator();
 	}
@@ -51,6 +73,7 @@ public class Queue<Item> implements Iterable<Item> {
 		public boolean hasNext() {return current != null;}
 		public void remove() {}
 		public Item next() {
+			
 			Item item = current.item;
 			current = current.next;
 			return item;

@@ -1,6 +1,8 @@
-package Chapter_1;
+package Chapter_1Test;
 
 import java.util.Iterator;
+
+import Chapter_1.Stack;
 
 
 /**
@@ -41,7 +43,7 @@ class Steque<Item> implements Iterable<Item>{
 		N++;
 	}
 	
-	public void enqueue(Item item){
+	public void enqueue(Item item) {
 		
 		Node oldlast = last;
 		last = new Node();
@@ -59,11 +61,17 @@ class Steque<Item> implements Iterable<Item>{
 		return item;
 	}
 
+	public Steque<Item> catenation(Steque<Item> s1, Steque<Item> s2) {
+		while (s2.size() > 0) {
+			s1.enqueue(s2.pop());
+		}
+		return s1;
+	}
 	public Iterator<Item> iterator() {
 		return new StequeIterator();
 	}
 	
-	private class StequeIterator implements Iterator<Item>{
+	private class StequeIterator implements Iterator<Item> {
 		Node current = first;
 		public boolean hasNext() {return current != null;}
 		public Item next() {

@@ -66,12 +66,14 @@ public class LinkedList<Item> implements Iterable<Item> {
 	//Test1.3.26
 		Node current = head;
 		head = null;
-		while(current.next !=null) {
-			if(!current.item.equals(key)) {
+		N = 0;
+		while (current.next !=null) {
+			if (!current.item.equals(key)) {
 				Node oldhead = head;
 				head = new Node();
 				head.item = current.item;
 				head.next = oldhead;
+				N++;
 			}
 			current = current.next;
 		}

@@ -2,14 +2,16 @@ package Chapter_1Test;
 
 import java.util.Iterator;
 
-class DoubldeLinkedList<Item> implements Iterable<Item>{
-	private class DoubleNode{
+import edu.princeton.cs.algs4.StdIn;
+
+
+class LinkedListMTF<Item> implements Iterable<Item>{
+	private class Node{
 		Item item;
-		DoubleNode next;
-		DoubleNode prev;
+		Node next;
 	}
 	
-	private DoubleNode first;
+	private Node first;
 	private int N;
 	public boolean isEmpty() {
 		return N == 0;
@@ -21,8 +23,8 @@ class DoubldeLinkedList<Item> implements Iterable<Item>{
 
 	
 	public void insertHead(Item item){
-		DoubleNode oldfirst = first;
-		first = new DoubleNode();
+		Node oldfirst = first;
+		first = new Node();
 		first.item = item;
 		first.next = oldfirst;
 		N++;
@@ -30,13 +32,13 @@ class DoubldeLinkedList<Item> implements Iterable<Item>{
 	
 	public void insertTail(Item item) {
 		if(isEmpty()) {
-			first = new DoubleNode();
+			first = new Node();
 			first.item = item;
 		}else {
-			DoubleNode current = first;
+			Node current = first;
 			while(current.next != null)
 				current = current.next;
-			current.next = new DoubleNode();
+			current.next = new Node();
 			current.next.item = item;
 		}
 		N++;
@@ -55,12 +57,34 @@ class DoubldeLinkedList<Item> implements Iterable<Item>{
 		if(isEmpty()) 
 			throw new IllegalArgumentException("链表为已为空");
 		else {
-			DoubleNode cnt = first;
+			Node cnt = first;
 			while(cnt.next.next != null)
 				cnt = cnt.next;
 			cnt.next = null;
 		}
 		N--;
+	}
+	
+	public void remove(Item key) {
+	//Test1.3.26
+		Node current = first;
+		first = null;
+		N = 0;
+		while (current !=null) {
+			/*
+			 * 把所有和key不同的元素插入到新链表中
+			 */
+			if (!current.item.equals(key)) {
+				Node oldhead = first;
+				first = new Node();
+				first.item = current.item;
+				first.next = oldhead;
+				N++;
+			}
+			current = current.next;
+		}
+		
+		
 	}
 
 	public Iterator<Item> iterator() {
@@ -68,7 +92,7 @@ class DoubldeLinkedList<Item> implements Iterable<Item>{
 	}
 	
 	private class DoubleListIterator implements Iterator<Item>{
-		DoubleNode cnt = first;
+		Node cnt = first;
 		public boolean hasNext(){return cnt != null;}
 		public Item next() {
 			Item item = cnt.item;
@@ -78,22 +102,24 @@ class DoubldeLinkedList<Item> implements Iterable<Item>{
 	}
 }
 
-public class Test3_31 {
-	
+public class Test3_40 {
+	/*
+	 * 前移编码 MoveToFront
+	 * 
+	 */
 	public static void main(String[] args) {
-		DoubldeLinkedList<String> list = new DoubldeLinkedList<String>();
-		list.insertHead("a");
-		list.insertHead("b");
-		list.insertHead("c");
-		list.insertHead("d");
-	//	list.insertTail("d");
-		//list.insertTail("e");
-		list.deleteHead();
-		list.deleteTail();
+		LinkedListMTF<String> list= new LinkedListMTF<String>();
+		while (!StdIn.isEmpty()) {
+			String s = StdIn.readString();
+			list.remove(s);
+			list.insertHead(s);
+			for(String s2 : list)
+				System.out.print(s2 + " ");
+			System.out.println();
+		}
 		
-		for(String s : list)
-			System.out.print(s + " ");
-	}
 	
+		
+	}
 
 }

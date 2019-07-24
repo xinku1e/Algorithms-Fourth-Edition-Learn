@@ -1,5 +1,6 @@
 package Chapter_1;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import edu.princeton.cs.algs4.StdIn;
@@ -12,6 +13,15 @@ public class Stack<Item> implements Iterable<Item> {
 	}
 	private Node first;
 	private int N;
+	
+	public Stack() {}
+	public Stack(Stack<Item> s) {
+		Stack<Item> t = new Stack<Item>();
+		for(Item item : s)
+			t.push(item);
+		for(Item item : t)
+			push(item);
+	}
 	
 	public boolean isEmpty() {
 		return first == null;
@@ -40,16 +50,33 @@ public class Stack<Item> implements Iterable<Item> {
 		return first.item;
 	}
 	
+	public Stack<Item> catenation(Stack<Item> s1, Stack<Item> s2) {
+		Stack<Item> temp = new Stack<Item>();
+		while (s1.size() > 0) {
+			temp.push(s1.pop());
+		}
+		while (temp.size() > 0) {
+			s2.push(temp.pop());
+		}
+		return s2;
+	}
+	
 	private class StackIterator implements Iterator<Item>{
+		int m = size();
 		Node current = first;
-		public boolean hasNext(){ return current != null;}
+		public boolean hasNext(){
+			if (m != size())	throw new ConcurrentModificationException();
+			return current != null;
+			}
 		public void remove() {}
 		public Item next() {
+			if (m != size())	throw new ConcurrentModificationException();
 			Item item = current.item;
 			current = current.next;
 			return item;
 		}
 	}
+	
 	
 	public Iterator<Item> iterator() {
 		
