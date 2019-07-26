@@ -24,7 +24,7 @@ public class Accmulator {
 	public static void main(String[] args) {
 		int T = StdIn.readInt();
 		Accmulator a = new Accmulator();
-		for(int i = 0; i < T; i++) {
+		for (int i = 0; i < T; i++) {
 			a.addDataValue(StdRandom.random());
 		}
 		System.out.println(a);
